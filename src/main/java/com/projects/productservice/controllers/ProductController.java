@@ -2,10 +2,7 @@ package com.projects.productservice.controllers;
 
 import com.projects.productservice.models.Product;
 import com.projects.productservice.services.ProductService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -25,5 +22,9 @@ public class ProductController {
     @GetMapping()
     public List<Product> getAllProduct(){
         return productService.getAllProducts();
+    }
+    @PutMapping("/{id}")
+    public Product replaceProduct(@PathVariable("id") long id, @RequestBody Product product) {
+        return productService.replaceProduct(id, product);
     }
 }
