@@ -2,6 +2,9 @@ package com.projects.productservice.controllers;
 
 import com.projects.productservice.models.Product;
 import com.projects.productservice.services.ProductService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -15,8 +18,12 @@ public class ProductController {
     }
 
     @GetMapping("/{id}")
-    public Product getProductBtId(@PathVariable("id") long id) {
-        return productService.getProductById(id);
+    public ResponseEntity<Product> getProductBtId(@PathVariable("id") long id) {
+        Product product = productService.getProductById(id);
+        if(product == null) {
+            return new ResponseEntity<>(product, HttpStatus.BAD_REQUEST);
+        }
+        return new ResponseEntity<>(product, HttpStatus.OK);
     }
 
     @GetMapping()
