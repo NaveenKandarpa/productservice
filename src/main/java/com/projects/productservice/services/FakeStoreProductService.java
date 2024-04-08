@@ -1,6 +1,8 @@
 package com.projects.productservice.services;
 
 import com.projects.productservice.dtos.FakeStoreProductDto;
+import com.projects.productservice.dtos.ProductNotFoundExceptionDto;
+import com.projects.productservice.exceptions.ProductNotFoundException;
 import com.projects.productservice.models.Category;
 import com.projects.productservice.models.Product;
 import org.springframework.context.annotation.Bean;
@@ -35,13 +37,15 @@ public class FakeStoreProductService implements ProductService{
         return product;
     }
     @Override
-    public Product getProductById(long id) {
-        FakeStoreProductDto dto = restTemplate.getForObject("https://fakestoreapi.com/products/" + id, FakeStoreProductDto.class);
+    public Product getProductById(long id) throws ProductNotFoundException{
+//        int x = 1/0;
+//        throw new RuntimeException("Something went wrong in service layer");
+        FakeStoreProductDto fakeStoreProductDto = restTemplate.getForObject("https://fakestoreapi.com/products/" + id, FakeStoreProductDto.class);
 
-        if(dto == null) {
-            return null;
+        if(fakeStoreProductDto == null) {
+            throw new ProductNotFoundException(id, "Product with id: " + id + " not found");
         }
-        return convertFakeStoreDtoToProduct(dto);
+        return convertFakeStoreDtoToProduct(fakeStoreProductDto);
     }
 
     @Override
@@ -72,4 +76,6 @@ public class FakeStoreProductService implements ProductService{
 
         return convertFakeStoreDtoToProduct(response);
     }
+
+
 }
