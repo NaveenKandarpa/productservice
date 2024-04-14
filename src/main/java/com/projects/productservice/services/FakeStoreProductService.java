@@ -6,6 +6,7 @@ import com.projects.productservice.exceptions.ProductNotFoundException;
 import com.projects.productservice.models.Category;
 import com.projects.productservice.models.Product;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Primary;
 import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpMessageConverterExtractor;
@@ -16,6 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
+//@Primary
 public class FakeStoreProductService implements ProductService{
     private RestTemplate restTemplate;
     public FakeStoreProductService(RestTemplate restTemplate) {
@@ -75,6 +77,16 @@ public class FakeStoreProductService implements ProductService{
                 restTemplate.execute("https://fakestoreapi.com/products/" + id, HttpMethod.PUT, requestCallback, responseExtractor);
 
         return convertFakeStoreDtoToProduct(response);
+    }
+
+    @Override
+    public Product createProduct(Product product) {
+        return null;
+    }
+
+    @Override
+    public void deleteProduct(Long id) {
+
     }
 
 

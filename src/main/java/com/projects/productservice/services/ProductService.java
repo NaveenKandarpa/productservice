@@ -9,4 +9,6 @@ public interface ProductService {
     public Product getProductById(long id) throws ProductNotFoundException;
     public List<Product> getAllProducts();
     public Product replaceProduct(long id, Product product);
+    public Product createProduct(Product product);
+    public void deleteProduct(Long id);
 }

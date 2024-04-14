@@ -32,8 +32,13 @@ public class ProductController {
     public List<Product> getAllProduct(){
         return productService.getAllProducts();
     }
+
     @PutMapping("/{id}")
     public Product replaceProduct(@PathVariable("id") long id, @RequestBody Product product) {
         return productService.replaceProduct(id, product);
+    }
+    @PostMapping
+    public Product createProduct(@RequestBody Product product) {
+        return productService.createProduct(product);
     }
 }
