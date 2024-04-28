@@ -79,6 +79,7 @@ CREATE TABLE product
     `description` VARCHAR(255) NULL,
     image         VARCHAR(255) NULL,
     category_id   BIGINT NULL,
+    qty           INT NOT NULL,
     CONSTRAINT pk_product PRIMARY KEY (id)
 );
 

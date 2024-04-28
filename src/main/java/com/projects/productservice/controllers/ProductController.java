@@ -4,7 +4,6 @@ import com.projects.productservice.exceptions.ProductNotFoundException;
 import com.projects.productservice.models.Product;
 import com.projects.productservice.services.ProductService;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,7 +18,7 @@ public class ProductController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Product> getProductBtId(@PathVariable("id") long id) throws ProductNotFoundException {
+    public ResponseEntity<Product> getProductById(@PathVariable("id") long id) throws ProductNotFoundException {
         Product product = productService.getProductById(id);
         if(product == null) {
             return new ResponseEntity<>(product, HttpStatus.BAD_REQUEST);
@@ -29,8 +28,9 @@ public class ProductController {
     }
 
     @GetMapping()
-    public List<Product> getAllProduct(){
+    public List<Product> getAllProducts(){
         return productService.getAllProducts();
+//        return null;
     }
 
     @PutMapping("/{id}")
