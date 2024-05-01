@@ -15,6 +15,6 @@ import java.util.Properties;
 @Entity
 public class Category extends BaseModel {
     private String description;
-    @OneToMany(mappedBy = "category")
-    private List<Product> products;
+//    @OneToMany(mappedBy = "category")
+//    private List<Product> products;
 }

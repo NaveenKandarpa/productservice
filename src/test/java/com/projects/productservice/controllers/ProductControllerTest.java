@@ -11,8 +11,7 @@ import org.springframework.http.ResponseEntity;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
 
 @SpringBootTest
@@ -24,7 +23,7 @@ class ProductControllerTest {
     private ProductService productService;
 
     @Test
-    void validGetProductByIdTest() throws ProductNotFoundException {
+    void testValidGetProductByIdTest() throws ProductNotFoundException {
         Product product = new Product();
         product.setId(1L);
         product.setTitle("Macbook pro");
@@ -38,12 +37,20 @@ class ProductControllerTest {
 //        assertThrows(ProductNotFoundException.class, null);
     }
     @Test
-    void validGetAllProducts() {
-        List<Product> products = List.of(new Product(), new Product(), new Product());
+    void testValidGetAllProducts() {
+        List<Product> expectedProducts = List.of(new Product(), new Product(), new Product());
         when(productService.getAllProducts())
-                .thenReturn(products);
+                .thenReturn(expectedProducts);
 
-        List<Product> productList = productController.getAllProducts();
-        assertEquals(products, productList);
+        List<Product> actualProducts = productController.getAllProducts();
+        assertIterableEquals(expectedProducts, actualProducts);
+    }
+
+    @Test
+    void testInvalidGetProductById() throws ProductNotFoundException {
+        when(productService.getProductById(100L))
+                .thenThrow(new ProductNotFoundException(100L, "no product with given id found"));
+
+        assertThrows(ProductNotFoundException.class, () -> productController.getProductById(100L));
     }
 }

@@ -3,6 +3,7 @@ package com.projects.productservice.controllers;
 import com.projects.productservice.exceptions.ProductNotFoundException;
 import com.projects.productservice.models.Product;
 import com.projects.productservice.services.ProductService;
+import org.hibernate.action.spi.Executable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -30,7 +31,7 @@ public class ProductController {
     @GetMapping()
     public List<Product> getAllProducts(){
         return productService.getAllProducts();
-//        return null;
+//        return List.of(new Product(), new Product(), new Product());
     }
 
     @PutMapping("/{id}")
@@ -40,5 +41,11 @@ public class ProductController {
     @PostMapping
     public Product createProduct(@RequestBody Product product) {
         return productService.createProduct(product);
+    }
+
+    @DeleteMapping("/{id}")
+    public void deleteProduct(@PathVariable("id") Long id) throws ProductNotFoundException{
+        productService.deleteProduct(id);
+        System.out.println("Product with id: " + id + " has been deleted");
     }
 }

@@ -30,6 +30,7 @@ public interface ProductRepository extends JpaRepository<Product,Long> {
 
     @Override
     void delete(Product product);
+
     //HQL
     @Query("select p.title, p.description from Product p where p.id = :id")
     Product someRandomQuery(@Param("id") Long id);

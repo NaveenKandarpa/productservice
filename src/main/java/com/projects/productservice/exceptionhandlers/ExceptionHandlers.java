@@ -3,6 +3,7 @@ package com.projects.productservice.exceptionhandlers;
 import com.projects.productservice.dtos.ExceptionDto;
 import com.projects.productservice.dtos.ProductNotFoundExceptionDto;
 import com.projects.productservice.exceptions.ProductNotFoundException;
+import com.projects.productservice.models.Product;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
@@ -32,4 +33,6 @@ public class ExceptionHandlers {
         dto.setMessage("Product with id " + exception.getId() + " not found...");
         return new ResponseEntity<>(dto, HttpStatus.NOT_FOUND);
     }
+
+//    public ResponseEntity<Product> findSomething
 }

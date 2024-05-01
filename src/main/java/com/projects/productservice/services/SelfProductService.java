@@ -8,10 +8,7 @@ import com.projects.productservice.repositories.ProductRepository;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
-import java.util.Properties;
+import java.util.*;
 
 @Service
 @Primary
@@ -31,6 +28,7 @@ public class SelfProductService implements ProductService{
         if(productOptional.isEmpty()) {
             throw new ProductNotFoundException(id, "Product not found");
         }
+//        int a = 1/0;
         return productOptional.get();
     }
 
@@ -39,12 +37,12 @@ public class SelfProductService implements ProductService{
         return productRepository.findAll();
     }
 
-    @Override
+    @Override // PUT
     public Product replaceProduct(long id, Product product) {
         return null;
     }
 
-    @Override
+    @Override // POST
     public Product createProduct(Product product) {
         // Before saving the product object, save the category object
 
@@ -58,6 +56,7 @@ public class SelfProductService implements ProductService{
         product.setCategory(category);
         return productRepository.save(product);
     }
+     // PATCH
     private Category updateCategory(Category category) {
         Optional<Category> category1 = categoryRepository.findById(category.getId());
         if(!category1.isPresent()) {
@@ -71,7 +70,13 @@ public class SelfProductService implements ProductService{
     }
 
     @Override
-    public void deleteProduct(Long id) {
-
+    public void deleteProduct(Long id) throws ProductNotFoundException{
+        Optional<Product> productOptional = productRepository.findById(id);
+        if(productOptional.isEmpty()) {
+            throw new ProductNotFoundException(id, " Product not found");
+        }
+        Product product = productOptional.get();
+        productRepository.delete(product);
     }
+
 }
