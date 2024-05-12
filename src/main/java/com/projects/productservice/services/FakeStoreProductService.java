@@ -18,7 +18,7 @@ import java.util.List;
 
 @Service
 //@Primary
-public class FakeStoreProductService implements ProductService{
+public class FakeStoreProductService implements ProductService {
     private RestTemplate restTemplate;
     public FakeStoreProductService(RestTemplate restTemplate) {
         this.restTemplate = restTemplate;

@@ -1,5 +1,7 @@
 package com.projects.productservice.controllers;
 
+import com.projects.productservice.commons.AuthCommons;
+import com.projects.productservice.dtos.UserDto;
 import com.projects.productservice.exceptions.ProductNotFoundException;
 import com.projects.productservice.models.Product;
 import com.projects.productservice.services.ProductService;
@@ -22,8 +24,11 @@ class ProductControllerTest {
     @MockBean // This is a mocked object
     private ProductService productService;
 
+    @MockBean
+    private AuthCommons authCommons;
+
     @Test
-    void testValidGetProductByIdTest() throws ProductNotFoundException {
+    void testValidGetProductById() throws ProductNotFoundException {
         Product product = new Product();
         product.setId(1L);
         product.setTitle("Macbook pro");
@@ -31,7 +36,14 @@ class ProductControllerTest {
         when(productService.getProductById(1L))
                 .thenReturn(product);
 
-        ResponseEntity<Product> responseEntity = productController.getProductById(1L);
+        UserDto userDto = new UserDto();
+        userDto.setName("Naveen");
+        userDto.setEmail("naveen@gmail.com");
+        when(authCommons.validateToken("4F03IQPH4NlasWIbN69s5unofTS01LLzMEin7UA5czJsKy64W5tq0B4vIsmoGTBFCnG9nls6KLaNqdG2h2aBV2qIOnEjP7g3aL5YgYP5GMTFVi1d4C0VcwrHThGyWVPL"))
+                .thenReturn(userDto);
+
+        ResponseEntity<Product> responseEntity = productController.getProductById(1L, "4F03IQPH4NlasWIbN69s5unofTS01LLzMEin7UA5czJsKy64W5tq0B4vIsmoGTBFCnG9nls6KLaNqdG2h2aBV2qIOnEjP7g3aL5YgYP5GMTFVi1d4C0VcwrHThGyWVPL");
+
         Product actualProduct = responseEntity.getBody();
         assertEquals(product, actualProduct);
 //        assertThrows(ProductNotFoundException.class, null);
@@ -51,6 +63,6 @@ class ProductControllerTest {
         when(productService.getProductById(100L))
                 .thenThrow(new ProductNotFoundException(100L, "no product with given id found"));
 
-        assertThrows(ProductNotFoundException.class, () -> productController.getProductById(100L));
+        assertThrows(ProductNotFoundException.class, () -> productController.getProductById(100L, "4F03IQPH4NlasWIbN69s5unofTS01LLzMEin7UA5czJsKy64W5tq0B4vIsmoGTBFCnG9nls6KLaNqdG2h2aBV2qIOnEjP7g3aL5YgYP5GMTFVi1d4C0VcwrHThGyWVPL"));
     }
 }

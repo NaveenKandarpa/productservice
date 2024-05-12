@@ -39,6 +39,7 @@ public class SelfProductService implements ProductService{
 
     @Override // PUT
     public Product replaceProduct(long id, Product product) {
+//        return productRepository.replaceProduct(id, product);
         return null;
     }
 

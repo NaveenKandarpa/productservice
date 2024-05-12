@@ -25,6 +25,8 @@ public interface ProductRepository extends JpaRepository<Product,Long> {
 
     Optional<Product> findByImage(String url);
 
+//    public Product replaceProduct(Long id, Product product);
+
     @Override
     Product save(Product product);
 
