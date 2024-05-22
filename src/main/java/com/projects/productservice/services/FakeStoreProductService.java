@@ -39,7 +39,7 @@ public class FakeStoreProductService implements ProductService {
         return product;
     }
     @Override
-    public Product getProductById(long id) throws ProductNotFoundException{
+    public Product getProductById(Long id) throws ProductNotFoundException{
 //        int x = 1/0;
 //        throw new RuntimeException("Something went wrong in service layer");
         FakeStoreProductDto fakeStoreProductDto = restTemplate.getForObject("https://fakestoreapi.com/products/" + id, FakeStoreProductDto.class);

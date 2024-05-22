@@ -25,18 +25,18 @@ public class ProductController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Product> getProductById(@PathVariable("id") long id, @RequestHeader("auth") String token) throws ProductNotFoundException {
+    public ResponseEntity<Product> getProductById(@PathVariable("id") long id) throws ProductNotFoundException {
 //        Product product = productService.getProductById(id);
 //        if(product == null) {
 //            return new ResponseEntity<>(product, HttpStatus.BAD_REQUEST);
 //        }
 //
 //        return new ResponseEntity<>(product, HttpStatus.OK);
-        UserDto userDto = authCommons.validateToken(token);
-
-        if(userDto == null) {
-            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
-        }
+//        UserDto userDto = authCommons.validateToken(token);
+//
+//        if(userDto == null) {
+//            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+//        }
         Product product = productService.getProductById(id);
         if(product == null) {
             return new ResponseEntity<>(product, HttpStatus.BAD_REQUEST);
@@ -48,7 +48,7 @@ public class ProductController {
 //                return new ResponseEntity<>(product, HttpStatus.OK);
 //            }
 //        }
-        return new ResponseEntity<>(product, HttpStatus.FORBIDDEN);
+        return new ResponseEntity<>(product, HttpStatus.OK);
     }
 
     @GetMapping()

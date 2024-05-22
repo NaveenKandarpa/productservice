@@ -23,7 +23,7 @@ public class SelfProductService implements ProductService{
     }
 
     @Override
-    public Product getProductById(long id) throws ProductNotFoundException {
+    public Product getProductById(Long id) throws ProductNotFoundException {
         Optional<Product> productOptional = productRepository.findById(id);
         if(productOptional.isEmpty()) {
             throw new ProductNotFoundException(id, "Product not found");

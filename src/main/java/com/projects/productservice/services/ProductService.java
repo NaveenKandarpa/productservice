@@ -6,7 +6,7 @@ import com.projects.productservice.models.Product;
 import java.util.List;
 
 public interface ProductService {
-    public Product getProductById(long id) throws ProductNotFoundException;
+    public Product getProductById(Long id) throws ProductNotFoundException;
     public List<Product> getAllProducts();
     public Product replaceProduct(long id, Product product);
     public Product createProduct(Product product);

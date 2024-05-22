@@ -42,7 +42,7 @@ class ProductControllerTest {
         when(authCommons.validateToken("4F03IQPH4NlasWIbN69s5unofTS01LLzMEin7UA5czJsKy64W5tq0B4vIsmoGTBFCnG9nls6KLaNqdG2h2aBV2qIOnEjP7g3aL5YgYP5GMTFVi1d4C0VcwrHThGyWVPL"))
                 .thenReturn(userDto);
 
-        ResponseEntity<Product> responseEntity = productController.getProductById(1L, "4F03IQPH4NlasWIbN69s5unofTS01LLzMEin7UA5czJsKy64W5tq0B4vIsmoGTBFCnG9nls6KLaNqdG2h2aBV2qIOnEjP7g3aL5YgYP5GMTFVi1d4C0VcwrHThGyWVPL");
+        ResponseEntity<Product> responseEntity = productController.getProductById(1L);
 
         Product actualProduct = responseEntity.getBody();
         assertEquals(product, actualProduct);
@@ -63,6 +63,6 @@ class ProductControllerTest {
         when(productService.getProductById(100L))
                 .thenThrow(new ProductNotFoundException(100L, "no product with given id found"));
 
-        assertThrows(ProductNotFoundException.class, () -> productController.getProductById(100L, "4F03IQPH4NlasWIbN69s5unofTS01LLzMEin7UA5czJsKy64W5tq0B4vIsmoGTBFCnG9nls6KLaNqdG2h2aBV2qIOnEjP7g3aL5YgYP5GMTFVi1d4C0VcwrHThGyWVPL"));
+        assertThrows(ProductNotFoundException.class, () -> productController.getProductById(100L));
     }
 }
