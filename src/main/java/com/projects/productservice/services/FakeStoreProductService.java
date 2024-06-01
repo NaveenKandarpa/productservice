@@ -7,6 +7,7 @@ import com.projects.productservice.models.Category;
 import com.projects.productservice.models.Product;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Primary;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpMessageConverterExtractor;
@@ -17,7 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-//@Primary
+@Primary
 public class FakeStoreProductService implements ProductService {
     private RestTemplate restTemplate;
     public FakeStoreProductService(RestTemplate restTemplate) {
@@ -51,15 +52,15 @@ public class FakeStoreProductService implements ProductService {
     }
 
     @Override
-    public List<Product> getAllProducts() {
-        FakeStoreProductDto[] productDtoList;
-        productDtoList = restTemplate.getForObject("https://fakestoreapi.com/products", FakeStoreProductDto[].class);
-        if(productDtoList == null) return null;
-        ArrayList<Product> products = new ArrayList<>();
-        for(FakeStoreProductDto dto : productDtoList) {
-            products.add(convertFakeStoreDtoToProduct(dto));
-        }
-        return products;
+    public Page<Product> getAllProducts(int pageNumber, int pageSize) {
+//        FakeStoreProductDto[] productDtoList;
+//        productDtoList = restTemplate.getForObject("https://fakestoreapi.com/products", FakeStoreProductDto[].class);
+//        if(productDtoList == null) return null;
+//        ArrayList<Product> products = new ArrayList<>();
+//        for(FakeStoreProductDto dto : productDtoList) {
+//            products.add(convertFakeStoreDtoToProduct(dto));
+//        }
+        return null;
     }
 
     @Override

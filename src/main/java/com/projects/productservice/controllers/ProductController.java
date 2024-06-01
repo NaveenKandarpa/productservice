@@ -8,6 +8,7 @@ import com.projects.productservice.exceptions.TokenNotFoundException;
 import com.projects.productservice.models.Product;
 import com.projects.productservice.services.ProductService;
 import org.hibernate.action.spi.Executable;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -52,8 +53,9 @@ public class ProductController {
     }
 
     @GetMapping()
-    public List<Product> getAllProducts(){
-        return productService.getAllProducts();
+    public Page<Product> getAllProducts(@RequestParam("pageNumber") int pageNumber,
+                                        @RequestParam("pageSize") int pageSize){
+        return productService.getAllProducts(pageNumber, pageSize);
 //        return List.of(new Product(), new Product(), new Product());
     }
 

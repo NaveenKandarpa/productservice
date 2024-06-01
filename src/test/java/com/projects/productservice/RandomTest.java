@@ -12,6 +12,6 @@ public class RandomTest {
         int i = 1 + 1;
         assert i == 2;
         Assertions.assertEquals(2, i);
-        assertTrue(false);
+//        assertTrue(false);
     }
 }

@@ -6,12 +6,15 @@ import com.projects.productservice.models.Product;
 import com.projects.productservice.repositories.CategoryRepository;
 import com.projects.productservice.repositories.ProductRepository;
 import org.springframework.context.annotation.Primary;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
 
 @Service
-@Primary
+//@Primary
 public class SelfProductService implements ProductService{
     private ProductRepository productRepository;
     private final CategoryRepository categoryRepository;
@@ -32,9 +35,10 @@ public class SelfProductService implements ProductService{
         return productOptional.get();
     }
 
-    @Override
-    public List<Product> getAllProducts() {
-        return productRepository.findAll();
+//    @Override
+    public Page<Product> getAllProducts(int pageNumber, int pageSize) {
+        return productRepository.findAll(PageRequest.of(pageNumber, pageSize,
+                Sort.by("price").descending()  ));
     }
 
     @Override // PUT
